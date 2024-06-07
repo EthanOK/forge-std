@@ -5,10 +5,10 @@ import "../src/Test.sol";
 
 contract StdUtilsMock is StdUtils {
     // We deploy a mock version so we can properly test expected reverts.
-    function exposed_getTokenBalances(address token, address[] memory addresses)
-        external
-        returns (uint256[] memory balances)
-    {
+    function exposed_getTokenBalances(
+        address token,
+        address[] memory addresses
+    ) external returns (uint256[] memory balances) {
         return getTokenBalances(token, addresses);
     }
 
@@ -58,7 +58,7 @@ contract StdUtilsTest is Test {
     }
 
     function test_Bound_DistributionIsEven(uint256 min, uint256 size) public pure {
-        size = size % 100 + 1;
+        size = (size % 100) + 1;
         min = bound(min, UINT256_MAX / 2, UINT256_MAX / 2 + size);
         uint256 max = min + size - 1;
         uint256 result;
@@ -66,10 +66,10 @@ contract StdUtilsTest is Test {
         for (uint256 i = 1; i <= size * 4; ++i) {
             // x > max
             result = bound(max + i, min, max);
-            assertEq(result, min + (i - 1) % size);
+            assertEq(result, min + ((i - 1) % size));
             // x < min
             result = bound(min - i, min, max);
-            assertEq(result, max - (i - 1) % size);
+            assertEq(result, max - ((i - 1) % size));
         }
     }
 
@@ -147,7 +147,7 @@ contract StdUtilsTest is Test {
     }
 
     function test_BoundInt_DistributionIsEven(int256 min, uint256 size) public pure {
-        size = size % 100 + 1;
+        size = (size % 100) + 1;
         min = bound(min, -int256(size / 2), int256(size - size / 2));
         int256 max = min + int256(size) - 1;
         int256 result;
@@ -212,7 +212,7 @@ contract StdUtilsTest is Test {
         assertEq(boundPrivateKey(SECP256K1_ORDER - 1), SECP256K1_ORDER - 1);
         assertEq(boundPrivateKey(SECP256K1_ORDER), 1);
         assertEq(boundPrivateKey(SECP256K1_ORDER + 1), 2);
-        assertEq(boundPrivateKey(UINT256_MAX), UINT256_MAX & SECP256K1_ORDER - 1); // x&y is equivalent to x-x%y
+        assertEq(boundPrivateKey(UINT256_MAX), UINT256_MAX & (SECP256K1_ORDER - 1)); // x&y is equivalent to x-x%y
     }
 
     /*//////////////////////////////////////////////////////////////////////////
@@ -286,7 +286,7 @@ contract StdUtilsForkTest is Test {
 
     function setUp() public {
         // All tests of the `getTokenBalances` method are fork tests using live contracts.
-        vm.createSelectFork({urlOrAlias: "mainnet", blockNumber: 16_428_900});
+        vm.createSelectFork({ urlOrAlias: "mainnet", blockNumber: 16_428_900 });
     }
 
     function test_CannotGetTokenBalances_NonTokenContract() external {
@@ -307,7 +307,7 @@ contract StdUtilsForkTest is Test {
         // We deploy a mock version so we can properly test the revert.
         StdUtilsMock stdUtils = new StdUtilsMock();
 
-        address eoa = vm.addr({privateKey: 1});
+        address eoa = vm.addr({ privateKey: 1 });
         address[] memory addresses = new address[](1);
         addresses[0] = USDC_HOLDER_0;
         vm.expectRevert("StdUtils getTokenBalances(address,address[]): Token address is not a contract.");

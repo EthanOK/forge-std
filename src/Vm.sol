@@ -301,34 +301,38 @@ interface VmSafe {
     /// Gets the environment variable `name` and parses it as an array of `address`, delimited by `delim`.
     /// Reverts if the variable could not be parsed.
     /// Returns `defaultValue` if the variable was not found.
-    function envOr(string calldata name, string calldata delim, address[] calldata defaultValue)
-        external
-        view
-        returns (address[] memory value);
+    function envOr(
+        string calldata name,
+        string calldata delim,
+        address[] calldata defaultValue
+    ) external view returns (address[] memory value);
 
     /// Gets the environment variable `name` and parses it as an array of `bytes32`, delimited by `delim`.
     /// Reverts if the variable could not be parsed.
     /// Returns `defaultValue` if the variable was not found.
-    function envOr(string calldata name, string calldata delim, bytes32[] calldata defaultValue)
-        external
-        view
-        returns (bytes32[] memory value);
+    function envOr(
+        string calldata name,
+        string calldata delim,
+        bytes32[] calldata defaultValue
+    ) external view returns (bytes32[] memory value);
 
     /// Gets the environment variable `name` and parses it as an array of `string`, delimited by `delim`.
     /// Reverts if the variable could not be parsed.
     /// Returns `defaultValue` if the variable was not found.
-    function envOr(string calldata name, string calldata delim, string[] calldata defaultValue)
-        external
-        view
-        returns (string[] memory value);
+    function envOr(
+        string calldata name,
+        string calldata delim,
+        string[] calldata defaultValue
+    ) external view returns (string[] memory value);
 
     /// Gets the environment variable `name` and parses it as an array of `bytes`, delimited by `delim`.
     /// Reverts if the variable could not be parsed.
     /// Returns `defaultValue` if the variable was not found.
-    function envOr(string calldata name, string calldata delim, bytes[] calldata defaultValue)
-        external
-        view
-        returns (bytes[] memory value);
+    function envOr(
+        string calldata name,
+        string calldata delim,
+        bytes[] calldata defaultValue
+    ) external view returns (bytes[] memory value);
 
     /// Gets the environment variable `name` and parses it as `int256`.
     /// Reverts if the variable could not be parsed.
@@ -358,26 +362,29 @@ interface VmSafe {
     /// Gets the environment variable `name` and parses it as an array of `bool`, delimited by `delim`.
     /// Reverts if the variable could not be parsed.
     /// Returns `defaultValue` if the variable was not found.
-    function envOr(string calldata name, string calldata delim, bool[] calldata defaultValue)
-        external
-        view
-        returns (bool[] memory value);
+    function envOr(
+        string calldata name,
+        string calldata delim,
+        bool[] calldata defaultValue
+    ) external view returns (bool[] memory value);
 
     /// Gets the environment variable `name` and parses it as an array of `uint256`, delimited by `delim`.
     /// Reverts if the variable could not be parsed.
     /// Returns `defaultValue` if the variable was not found.
-    function envOr(string calldata name, string calldata delim, uint256[] calldata defaultValue)
-        external
-        view
-        returns (uint256[] memory value);
+    function envOr(
+        string calldata name,
+        string calldata delim,
+        uint256[] calldata defaultValue
+    ) external view returns (uint256[] memory value);
 
     /// Gets the environment variable `name` and parses it as an array of `int256`, delimited by `delim`.
     /// Reverts if the variable could not be parsed.
     /// Returns `defaultValue` if the variable was not found.
-    function envOr(string calldata name, string calldata delim, int256[] calldata defaultValue)
-        external
-        view
-        returns (int256[] memory value);
+    function envOr(
+        string calldata name,
+        string calldata delim,
+        int256[] calldata defaultValue
+    ) external view returns (int256[] memory value);
 
     /// Gets the environment variable `name` and parses it as `string`.
     /// Reverts if the variable was not found or could not be parsed.
@@ -410,9 +417,12 @@ interface VmSafe {
     function addr(uint256 privateKey) external pure returns (address keyAddr);
 
     /// Gets all the logs according to specified filter.
-    function eth_getLogs(uint256 fromBlock, uint256 toBlock, address target, bytes32[] calldata topics)
-        external
-        returns (EthGetLogs[] memory logs);
+    function eth_getLogs(
+        uint256 fromBlock,
+        uint256 toBlock,
+        address target,
+        bytes32[] calldata topics
+    ) external returns (EthGetLogs[] memory logs);
 
     /// Gets the current `block.blobbasefee`.
     /// You should use this instead of `block.blobbasefee` if you use `vm.blobBaseFee`, as `block.blobbasefee` is assumed to be constant across a transaction,
@@ -433,9 +443,10 @@ interface VmSafe {
     function getBlockTimestamp() external view returns (uint256 timestamp);
 
     /// Gets the map key and parent of a mapping at a given slot, for a given address.
-    function getMappingKeyAndParentOf(address target, bytes32 elementSlot)
-        external
-        returns (bool found, bytes32 key, bytes32 parent);
+    function getMappingKeyAndParentOf(
+        address target,
+        bytes32 elementSlot
+    ) external returns (bool found, bytes32 key, bytes32 parent);
 
     /// Gets the number of elements in the mapping at the given slot, for a given address.
     function getMappingLength(address target, bytes32 mappingSlot) external returns (uint256 length);
@@ -567,10 +578,11 @@ interface VmSafe {
     function readDir(string calldata path, uint64 maxDepth) external view returns (DirEntry[] memory entries);
 
     /// See `readDir(string)`.
-    function readDir(string calldata path, uint64 maxDepth, bool followLinks)
-        external
-        view
-        returns (DirEntry[] memory entries);
+    function readDir(
+        string calldata path,
+        uint64 maxDepth,
+        bool followLinks
+    ) external view returns (DirEntry[] memory entries);
 
     /// Reads the entire content of file to string. `path` is relative to the project root.
     function readFile(string calldata path) external view returns (string memory data);
@@ -635,10 +647,7 @@ interface VmSafe {
     function parseJsonAddress(string calldata json, string calldata key) external pure returns (address);
 
     /// Parses a string of JSON data at `key` and coerces it to `address[]`.
-    function parseJsonAddressArray(string calldata json, string calldata key)
-        external
-        pure
-        returns (address[] memory);
+    function parseJsonAddressArray(string calldata json, string calldata key) external pure returns (address[] memory);
 
     /// Parses a string of JSON data at `key` and coerces it to `bool`.
     function parseJsonBool(string calldata json, string calldata key) external pure returns (bool);
@@ -653,10 +662,7 @@ interface VmSafe {
     function parseJsonBytes32(string calldata json, string calldata key) external pure returns (bytes32);
 
     /// Parses a string of JSON data at `key` and coerces it to `bytes32[]`.
-    function parseJsonBytes32Array(string calldata json, string calldata key)
-        external
-        pure
-        returns (bytes32[] memory);
+    function parseJsonBytes32Array(string calldata json, string calldata key) external pure returns (bytes32[] memory);
 
     /// Parses a string of JSON data at `key` and coerces it to `bytes[]`.
     function parseJsonBytesArray(string calldata json, string calldata key) external pure returns (bytes[] memory);
@@ -689,83 +695,113 @@ interface VmSafe {
     function parseJson(string calldata json, string calldata key) external pure returns (bytes memory abiEncodedData);
 
     /// See `serializeJson`.
-    function serializeAddress(string calldata objectKey, string calldata valueKey, address value)
-        external
-        returns (string memory json);
+    function serializeAddress(
+        string calldata objectKey,
+        string calldata valueKey,
+        address value
+    ) external returns (string memory json);
 
     /// See `serializeJson`.
-    function serializeAddress(string calldata objectKey, string calldata valueKey, address[] calldata values)
-        external
-        returns (string memory json);
+    function serializeAddress(
+        string calldata objectKey,
+        string calldata valueKey,
+        address[] calldata values
+    ) external returns (string memory json);
 
     /// See `serializeJson`.
-    function serializeBool(string calldata objectKey, string calldata valueKey, bool value)
-        external
-        returns (string memory json);
+    function serializeBool(
+        string calldata objectKey,
+        string calldata valueKey,
+        bool value
+    ) external returns (string memory json);
 
     /// See `serializeJson`.
-    function serializeBool(string calldata objectKey, string calldata valueKey, bool[] calldata values)
-        external
-        returns (string memory json);
+    function serializeBool(
+        string calldata objectKey,
+        string calldata valueKey,
+        bool[] calldata values
+    ) external returns (string memory json);
 
     /// See `serializeJson`.
-    function serializeBytes32(string calldata objectKey, string calldata valueKey, bytes32 value)
-        external
-        returns (string memory json);
+    function serializeBytes32(
+        string calldata objectKey,
+        string calldata valueKey,
+        bytes32 value
+    ) external returns (string memory json);
 
     /// See `serializeJson`.
-    function serializeBytes32(string calldata objectKey, string calldata valueKey, bytes32[] calldata values)
-        external
-        returns (string memory json);
+    function serializeBytes32(
+        string calldata objectKey,
+        string calldata valueKey,
+        bytes32[] calldata values
+    ) external returns (string memory json);
 
     /// See `serializeJson`.
-    function serializeBytes(string calldata objectKey, string calldata valueKey, bytes calldata value)
-        external
-        returns (string memory json);
+    function serializeBytes(
+        string calldata objectKey,
+        string calldata valueKey,
+        bytes calldata value
+    ) external returns (string memory json);
 
     /// See `serializeJson`.
-    function serializeBytes(string calldata objectKey, string calldata valueKey, bytes[] calldata values)
-        external
-        returns (string memory json);
+    function serializeBytes(
+        string calldata objectKey,
+        string calldata valueKey,
+        bytes[] calldata values
+    ) external returns (string memory json);
 
     /// See `serializeJson`.
-    function serializeInt(string calldata objectKey, string calldata valueKey, int256 value)
-        external
-        returns (string memory json);
+    function serializeInt(
+        string calldata objectKey,
+        string calldata valueKey,
+        int256 value
+    ) external returns (string memory json);
 
     /// See `serializeJson`.
-    function serializeInt(string calldata objectKey, string calldata valueKey, int256[] calldata values)
-        external
-        returns (string memory json);
+    function serializeInt(
+        string calldata objectKey,
+        string calldata valueKey,
+        int256[] calldata values
+    ) external returns (string memory json);
 
     /// Serializes a key and value to a JSON object stored in-memory that can be later written to a file.
     /// Returns the stringified version of the specific JSON file up to that moment.
     function serializeJson(string calldata objectKey, string calldata value) external returns (string memory json);
 
     /// See `serializeJson`.
-    function serializeString(string calldata objectKey, string calldata valueKey, string calldata value)
-        external
-        returns (string memory json);
+    function serializeString(
+        string calldata objectKey,
+        string calldata valueKey,
+        string calldata value
+    ) external returns (string memory json);
 
     /// See `serializeJson`.
-    function serializeString(string calldata objectKey, string calldata valueKey, string[] calldata values)
-        external
-        returns (string memory json);
+    function serializeString(
+        string calldata objectKey,
+        string calldata valueKey,
+        string[] calldata values
+    ) external returns (string memory json);
 
     /// See `serializeJson`.
-    function serializeUintToHex(string calldata objectKey, string calldata valueKey, uint256 value)
-        external
-        returns (string memory json);
+    function serializeUintToHex(
+        string calldata objectKey,
+        string calldata valueKey,
+        uint256 value
+    ) external returns (string memory json);
 
     /// See `serializeJson`.
-    function serializeUint(string calldata objectKey, string calldata valueKey, uint256 value)
-        external
-        returns (string memory json);
+    function serializeUint(
+        string calldata objectKey,
+        string calldata valueKey,
+        uint256 value
+    ) external returns (string memory json);
 
     /// See `serializeJson`.
-    function serializeUint(string calldata objectKey, string calldata valueKey, uint256[] calldata values)
-        external
-        returns (string memory json);
+    function serializeUint(
+        string calldata objectKey,
+        string calldata valueKey,
+        uint256[] calldata values
+    ) external returns (string memory json);
 
     /// Write a serialized JSON object to a file. If the file exists, it will be overwritten.
     function writeJson(string calldata json, string calldata path) external;
@@ -835,10 +871,11 @@ interface VmSafe {
     function parseUint(string calldata stringifiedValue) external pure returns (uint256 parsedValue);
 
     /// Replaces occurrences of `from` in the given `string` with `to`.
-    function replace(string calldata input, string calldata from, string calldata to)
-        external
-        pure
-        returns (string memory output);
+    function replace(
+        string calldata input,
+        string calldata from,
+        string calldata to
+    ) external pure returns (string memory output);
 
     /// Splits the given `string` into an array of strings divided by the `delimiter`.
     function split(string calldata input, string calldata delimiter) external pure returns (string[] memory outputs);
@@ -917,9 +954,12 @@ interface VmSafe {
     /// Compares two `uint256` values. Expects relative difference in percents to be less than or equal to `maxPercentDelta`.
     /// `maxPercentDelta` is an 18 decimal fixed point number, where 1e18 == 100%
     /// Formats values with decimals in failure message.
-    function assertApproxEqRelDecimal(uint256 left, uint256 right, uint256 maxPercentDelta, uint256 decimals)
-        external
-        pure;
+    function assertApproxEqRelDecimal(
+        uint256 left,
+        uint256 right,
+        uint256 maxPercentDelta,
+        uint256 decimals
+    ) external pure;
 
     /// Compares two `uint256` values. Expects relative difference in percents to be less than or equal to `maxPercentDelta`.
     /// `maxPercentDelta` is an 18 decimal fixed point number, where 1e18 == 100%
@@ -935,9 +975,12 @@ interface VmSafe {
     /// Compares two `int256` values. Expects relative difference in percents to be less than or equal to `maxPercentDelta`.
     /// `maxPercentDelta` is an 18 decimal fixed point number, where 1e18 == 100%
     /// Formats values with decimals in failure message.
-    function assertApproxEqRelDecimal(int256 left, int256 right, uint256 maxPercentDelta, uint256 decimals)
-        external
-        pure;
+    function assertApproxEqRelDecimal(
+        int256 left,
+        int256 right,
+        uint256 maxPercentDelta,
+        uint256 decimals
+    ) external pure;
 
     /// Compares two `int256` values. Expects relative difference in percents to be less than or equal to `maxPercentDelta`.
     /// `maxPercentDelta` is an 18 decimal fixed point number, where 1e18 == 100%
@@ -957,9 +1000,12 @@ interface VmSafe {
     /// Compares two `uint256` values. Expects relative difference in percents to be less than or equal to `maxPercentDelta`.
     /// `maxPercentDelta` is an 18 decimal fixed point number, where 1e18 == 100%
     /// Includes error message into revert string on failure.
-    function assertApproxEqRel(uint256 left, uint256 right, uint256 maxPercentDelta, string calldata error)
-        external
-        pure;
+    function assertApproxEqRel(
+        uint256 left,
+        uint256 right,
+        uint256 maxPercentDelta,
+        string calldata error
+    ) external pure;
 
     /// Compares two `int256` values. Expects relative difference in percents to be less than or equal to `maxPercentDelta`.
     /// `maxPercentDelta` is an 18 decimal fixed point number, where 1e18 == 100%
@@ -968,9 +1014,7 @@ interface VmSafe {
     /// Compares two `int256` values. Expects relative difference in percents to be less than or equal to `maxPercentDelta`.
     /// `maxPercentDelta` is an 18 decimal fixed point number, where 1e18 == 100%
     /// Includes error message into revert string on failure.
-    function assertApproxEqRel(int256 left, int256 right, uint256 maxPercentDelta, string calldata error)
-        external
-        pure;
+    function assertApproxEqRel(int256 left, int256 right, uint256 maxPercentDelta, string calldata error) external pure;
 
     /// Asserts that two `uint256` values are equal, formatting them with decimals in failure message.
     function assertEqDecimal(uint256 left, uint256 right, uint256 decimals) external pure;
@@ -1330,10 +1374,7 @@ interface VmSafe {
     function parseTomlAddress(string calldata toml, string calldata key) external pure returns (address);
 
     /// Parses a string of TOML data at `key` and coerces it to `address[]`.
-    function parseTomlAddressArray(string calldata toml, string calldata key)
-        external
-        pure
-        returns (address[] memory);
+    function parseTomlAddressArray(string calldata toml, string calldata key) external pure returns (address[] memory);
 
     /// Parses a string of TOML data at `key` and coerces it to `bool`.
     function parseTomlBool(string calldata toml, string calldata key) external pure returns (bool);
@@ -1348,10 +1389,7 @@ interface VmSafe {
     function parseTomlBytes32(string calldata toml, string calldata key) external pure returns (bytes32);
 
     /// Parses a string of TOML data at `key` and coerces it to `bytes32[]`.
-    function parseTomlBytes32Array(string calldata toml, string calldata key)
-        external
-        pure
-        returns (bytes32[] memory);
+    function parseTomlBytes32Array(string calldata toml, string calldata key) external pure returns (bytes32[] memory);
 
     /// Parses a string of TOML data at `key` and coerces it to `bytes[]`.
     function parseTomlBytesArray(string calldata toml, string calldata key) external pure returns (bytes[] memory);
@@ -1393,10 +1431,11 @@ interface VmSafe {
     // ======== Utilities ========
 
     /// Compute the address of a contract created with CREATE2 using the given CREATE2 deployer.
-    function computeCreate2Address(bytes32 salt, bytes32 initCodeHash, address deployer)
-        external
-        pure
-        returns (address);
+    function computeCreate2Address(
+        bytes32 salt,
+        bytes32 initCodeHash,
+        address deployer
+    ) external pure returns (address);
 
     /// Compute the address of a contract created with CREATE2 using the default CREATE2 deployer.
     function computeCreate2Address(bytes32 salt, bytes32 initCodeHash) external pure returns (address);
@@ -1419,24 +1458,28 @@ interface VmSafe {
 
     /// Derive a private key from a provided mnenomic string (or mnenomic file path)
     /// at `{derivationPath}{index}`.
-    function deriveKey(string calldata mnemonic, string calldata derivationPath, uint32 index)
-        external
-        pure
-        returns (uint256 privateKey);
+    function deriveKey(
+        string calldata mnemonic,
+        string calldata derivationPath,
+        uint32 index
+    ) external pure returns (uint256 privateKey);
 
     /// Derive a private key from a provided mnenomic string (or mnenomic file path) in the specified language
     /// at the derivation path `m/44'/60'/0'/0/{index}`.
-    function deriveKey(string calldata mnemonic, uint32 index, string calldata language)
-        external
-        pure
-        returns (uint256 privateKey);
+    function deriveKey(
+        string calldata mnemonic,
+        uint32 index,
+        string calldata language
+    ) external pure returns (uint256 privateKey);
 
     /// Derive a private key from a provided mnenomic string (or mnenomic file path) in the specified language
     /// at `{derivationPath}{index}`.
-    function deriveKey(string calldata mnemonic, string calldata derivationPath, uint32 index, string calldata language)
-        external
-        pure
-        returns (uint256 privateKey);
+    function deriveKey(
+        string calldata mnemonic,
+        string calldata derivationPath,
+        uint32 index,
+        string calldata language
+    ) external pure returns (uint256 privateKey);
 
     /// Returns ENS namehash for provided string.
     function ensNamehash(string calldata name) external pure returns (bytes32);
@@ -1571,8 +1614,7 @@ interface Vm is VmSafe {
     function mockCallRevert(address callee, bytes calldata data, bytes calldata revertData) external;
 
     /// Reverts a call to an address with a specific `msg.value`, with specified revert data.
-    function mockCallRevert(address callee, uint256 msgValue, bytes calldata data, bytes calldata revertData)
-        external;
+    function mockCallRevert(address callee, uint256 msgValue, bytes calldata data, bytes calldata revertData) external;
 
     /// Mocks a call to an address, returning specified data.
     /// Calldata can either be strict or a partial match, e.g. if you only
@@ -1686,8 +1728,13 @@ interface Vm is VmSafe {
     function expectCallMinGas(address callee, uint256 msgValue, uint64 minGas, bytes calldata data) external;
 
     /// Expect given number of calls to an address with the specified `msg.value` and calldata, and a *minimum* amount of gas.
-    function expectCallMinGas(address callee, uint256 msgValue, uint64 minGas, bytes calldata data, uint64 count)
-        external;
+    function expectCallMinGas(
+        address callee,
+        uint256 msgValue,
+        uint64 minGas,
+        bytes calldata data,
+        uint64 count
+    ) external;
 
     /// Expects a call to an address with the specified calldata.
     /// Calldata can either be a strict or a partial match.
@@ -1714,8 +1761,7 @@ interface Vm is VmSafe {
     function expectEmit(bool checkTopic1, bool checkTopic2, bool checkTopic3, bool checkData) external;
 
     /// Same as the previous method, but also checks supplied address against emitting contract.
-    function expectEmit(bool checkTopic1, bool checkTopic2, bool checkTopic3, bool checkData, address emitter)
-        external;
+    function expectEmit(bool checkTopic1, bool checkTopic2, bool checkTopic3, bool checkData, address emitter) external;
 
     /// Prepare an expected log with all topic and data checks enabled.
     /// Call this function, then emit an event, then call a function. Internally after the call, we check if

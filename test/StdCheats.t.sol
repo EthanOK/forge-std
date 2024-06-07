@@ -30,31 +30,31 @@ contract StdCheatsTest is Test {
 
     function test_Hoax() public {
         hoax(address(1337));
-        test.bar{value: 100}(address(1337));
+        test.bar{ value: 100 }(address(1337));
     }
 
     function test_HoaxOrigin() public {
         hoax(address(1337), address(1337));
-        test.origin{value: 100}(address(1337));
+        test.origin{ value: 100 }(address(1337));
     }
 
     function test_HoaxDifferentAddresses() public {
         hoax(address(1337), address(7331));
-        test.origin{value: 100}(address(1337), address(7331));
+        test.origin{ value: 100 }(address(1337), address(7331));
     }
 
     function test_StartHoax() public {
         startHoax(address(1337));
-        test.bar{value: 100}(address(1337));
-        test.bar{value: 100}(address(1337));
+        test.bar{ value: 100 }(address(1337));
+        test.bar{ value: 100 }(address(1337));
         vm.stopPrank();
         test.bar(address(this));
     }
 
     function test_StartHoaxOrigin() public {
         startHoax(address(1337), address(1337));
-        test.origin{value: 100}(address(1337));
-        test.origin{value: 100}(address(1337));
+        test.origin{ value: 100 }(address(1337));
+        test.origin{ value: 100 }(address(1337));
         vm.stopPrank();
         test.bar(address(this));
     }
@@ -87,7 +87,7 @@ contract StdCheatsTest is Test {
     }
 
     function test_MakeAddrEquivalence() public {
-        (address addr,) = makeAddrAndKey("1337");
+        (address addr, ) = makeAddrAndKey("1337");
         assertEq(makeAddr("1337"), addr);
     }
 
@@ -402,16 +402,18 @@ contract StdCheatsTest is Test {
     function testFuzz_AssumeNotPrecompile(address addr) external {
         assumeNotPrecompile(addr, getChain("optimism_sepolia").chainId);
         assertTrue(
-            addr < address(1) || (addr > address(9) && addr < address(0x4200000000000000000000000000000000000000))
-                || addr > address(0x4200000000000000000000000000000000000800)
+            addr < address(1) ||
+                (addr > address(9) && addr < address(0x4200000000000000000000000000000000000000)) ||
+                addr > address(0x4200000000000000000000000000000000000800)
         );
     }
 
     function testFuzz_AssumeNotForgeAddress(address addr) external pure {
         assumeNotForgeAddress(addr);
         assertTrue(
-            addr != address(vm) && addr != 0x000000000000000000636F6e736F6c652e6c6f67
-                && addr != 0x4e59b44847b379578588920cA78FbF26c0B4956C
+            addr != address(vm) &&
+                addr != 0x000000000000000000636F6e736F6c652e6c6f67 &&
+                addr != 0x4e59b44847b379578588920cA78FbF26c0B4956C
         );
     }
 
@@ -467,13 +469,13 @@ contract StdCheatsForkTest is Test {
 
     function setUp() public {
         // All tests of the `assumeNotBlacklisted` method are fork tests using live contracts.
-        vm.createSelectFork({urlOrAlias: "mainnet", blockNumber: 16_428_900});
+        vm.createSelectFork({ urlOrAlias: "mainnet", blockNumber: 16_428_900 });
     }
 
     function test_CannotAssumeNoBlacklisted_EOA() external {
         // We deploy a mock version so we can properly test the revert.
         StdCheatsMock stdCheatsMock = new StdCheatsMock();
-        address eoa = vm.addr({privateKey: 1});
+        address eoa = vm.addr({ privateKey: 1 });
         vm.expectRevert("StdCheats assumeNotBlacklisted(address,address): Token address is not a contract.");
         stdCheatsMock.exposed_assumeNotBlacklisted(eoa, address(0));
     }
